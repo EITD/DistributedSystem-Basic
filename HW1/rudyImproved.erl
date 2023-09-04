@@ -1,4 +1,4 @@
--module(rudy).
+-module(rudyImproved).
 -export([init/1, handler/1, request/1, reply/1, start/1, stop/0]).
 
 init(Port) ->
@@ -15,7 +15,7 @@ init(Port) ->
 handler(Listen) ->
     case gen_tcp:accept(Listen) of
 	{ok, Client} ->
-	    request(Client),
+	    spawn(fun() -> request(Client) end),
 	    handler(Listen);
 	{error, Error} ->
 	    error
@@ -38,8 +38,8 @@ reply({{get, URI, _}, _, _}) ->
     http:ok(URI).
 
 start(Port) ->
-    register(rudy, spawn(fun() -> init(Port) end)).
+    register(rudyImproved, spawn(fun() -> init(Port) end)).
 
 stop() ->
-    exit(whereis(rudy), "time to die").
+    exit(whereis(rudyImproved), "time to die").
 				
