@@ -1,2 +1,0 @@
--module(http).
--export([parse_request/1]).
