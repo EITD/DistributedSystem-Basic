@@ -34,7 +34,7 @@ request(Client) ->
   gen_tcp:close(Client).
 
 reply({{get, URI, _}, _, _}) ->
-%%  timer:sleep(40),
+  timer:sleep(40),
   http:ok(URI).
 
 start(Port) ->
