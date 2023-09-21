@@ -1,40 +1,45 @@
 -module(test).
 -export([start/0, broadcast/0, update/0, stop/0]).
 
-%% erl -name sweden@192.168.1.100 -setcookie routy -connect_all false
+%% erl -name sweden@130.229.179.239 -setcookie routy -connect_all false
 start() ->
-  routy:start(r1, stockholm),
-  routy:start(r2, lund),
-  routy:start(r3, helsingborg),
-  routy:start(r4, uppsala),
-  routy:start(r5, gothenburg),
-  r1 ! {add, lund, {r2, 'sweden@192.168.1.100'}},
-  r2 ! {add, helsingborg, {r3, 'sweden@192.168.1.100'}},
-  r3 ! {add, uppsala, {r4, 'sweden@192.168.1.100'}},
-  r4 ! {add, gothenburg, {r5, 'sweden@192.168.1.100'}},
-  r5 ! {add, stockholm, {r1, 'sweden@192.168.1.100'}},
+  routy:start(stockholm, stockholm),
+  routy:start(lund, lund),
+  routy:start(helsingborg, helsingborg),
+  routy:start(uppsala, uppsala),
+  routy:start(gothenburg, gothenburg),
+  stockholm ! {add, lund, {lund, 'sweden@130.229.179.239'}},
+  lund ! {add, helsingborg, {helsingborg, 'sweden@130.229.179.239'}},
+  helsingborg ! {add, uppsala, {uppsala, 'sweden@130.229.179.239'}},
+  uppsala ! {add, gothenburg, {gothenburg, 'sweden@130.229.179.239'}},
+  gothenburg ! {add, stockholm, {stockholm, 'sweden@130.229.179.239'}},
+%%  stockholm ! {add, gothenburg, {gothenburg, 'sweden@130.229.179.239'}},
+%%  gothenburg ! {add, uppsala, {uppsala, 'sweden@130.229.179.239'}},
+%%  uppsala ! {add, helsingborg, {helsingborg, 'sweden@130.229.179.239'}},
+%%  helsingborg ! {add, lund, {lund, 'sweden@130.229.179.239'}},
+%%  lund ! {add, stockholm, {stockholm, 'sweden@130.229.179.239'}},
   starttrue.
 
 broadcast() ->
-  r1 ! broadcast,
-  r2 ! broadcast,
-  r3 ! broadcast,
-  r4 ! broadcast,
-  r5 ! broadcast,
+  stockholm ! broadcast,
+  lund ! broadcast,
+  helsingborg ! broadcast,
+  uppsala ! broadcast,
+  gothenburg ! broadcast,
   broadcasttrue.
 
 update() ->
-  r1 ! update,
-  r2 ! update,
-  r3 ! update,
-  r4 ! update,
-  r5 ! update,
+  stockholm ! update,
+  lund ! update,
+  helsingborg ! update,
+  uppsala ! update,
+  gothenburg ! update,
   updatetrue.
 
 stop() ->
-  routy:stop(r1),
-  routy:stop(r2),
-  routy:stop(r3),
-  routy:stop(r4),
-  routy:stop(r5),
+  routy:stop(stockholm),
+  routy:stop(lund),
+  routy:stop(helsingborg),
+  routy:stop(uppsala),
+  routy:stop(gothenburg),
   stoptrue.
