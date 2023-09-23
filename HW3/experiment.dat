@@ -1,0 +1,15 @@
+# Columns are:
+# 1 - Messages Received
+# 2 - Messages In Queue - Lamport
+# 3 - Messages In Queue - Vector
+
+10 10 10
+20 6 17
+30 7 13
+40 3 11
+50 11 21
+60 19 31
+70 9 23
+
+
+
