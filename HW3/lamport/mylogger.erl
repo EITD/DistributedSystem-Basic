@@ -26,7 +26,7 @@ loop(Clock, Queue) ->
   receive
     {log, From, Time, Msg} ->
 %%      io:format("realtime: ~w ~w ~p~n", [Time, From, Msg]),
-      io:format("~w~n", [length(Queue)]),
+%%      io:format("~w~n", [length(Queue)]),
       NewClock = time:update(From, Time, Clock),
 %%      NewQueue = goThrough(NewClock, insert({From, Time, Msg}, Queue)),
 %%      Removes elements from TempQueue that satisfy fun until the first element that does not satisfy.
